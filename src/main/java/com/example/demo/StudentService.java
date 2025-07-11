@@ -8,5 +8,7 @@ public interface StudentService {
     public Student createStudent(Student student);
 //    public void updateStudent (Long id);
 //    public List<Student> getAllStudents();
-//    public Student getStudentById(Long id);
+
+   public String getStudentById(Long rollNo);
+   public List<Student> getStudentsList();
 }
