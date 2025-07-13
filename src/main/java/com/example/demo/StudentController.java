@@ -29,5 +29,13 @@ public class StudentController {
     public List<Student> getAllStudents(){
         return service.getStudentsList();
     }
+    @PutMapping("/updateStudentById")
+    public Student updateStudentById(@RequestParam("rollNo") Long rollNo, @RequestBody  Student student){
+        return service.updateStudentById(rollNo,student);
+    }
+    @DeleteMapping("/deleteStudentById/{id}")
+    public String deleteStudentById(@PathVariable Long id ){
+        return service.deleteStudentById(id);
+    }
 
 }

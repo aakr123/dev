@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -39,4 +40,37 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getStudentsList() {
         return repository.findAll();
     }
+
+     @Override
+    public Student updateStudentById(Long id,Student student){
+         Student existingStudent=null;
+
+        try {
+             existingStudent = repository.findById(id).orElseThrow();
+
+
+            existingStudent.setName(student.getName());
+            existingStudent.setDepartment(student.getDepartment());
+            repository.save(existingStudent);
+        }
+        catch(Exception e){
+            e.getMessage();
+        }
+
+       System.out.println(existingStudent);
+       return existingStudent;
+     }
+     public String deleteStudentById(Long id){
+         if(repository.existsById(id)) {
+             repository.deleteById(id);
+             return "Student details with ID "+id+" is deleted";
+
+         }
+         else{
+             return "ID doesn't exist";
+         }
+
+
+     }
+
 }

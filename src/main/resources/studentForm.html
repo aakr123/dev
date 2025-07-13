@@ -14,24 +14,49 @@
 <input type="text" id="department"><br><br>
 <button onclick="submitForm()">Submit</button>
 
+<input type="number" id="id"><br>
+<label>ID:</label>
+<button onclick="deleteForm()">Delete</button>
+
 <script>
     function submitForm() {
+       const id = document.getElementById("rollNo").value;
+       const url = id ? `http://localhost:8080/updateStudentById?rollNo=${id}` : `http://localhost:8080/student`;
+       const method = id ? "PUT" : "POST";
         const data = {
             rollNo: document.getElementById("rollNo").value,
             name: document.getElementById("name").value,
             department: document.getElementById("department").value
         };
 
-        fetch("http://localhost:8080/student", {
-            method: "POST",
+        fetch(url, {
+            method: method,
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(result => alert("Student created: " + JSON.stringify(result)))
-        .catch(error => console.error("Error:", error));
+        .then(result => alert(`Student ${id ? 'updated' : 'created'}: ` + JSON.stringify(result)))
+.catch(error => console.error("Error:", error));
+    }
+</script>
+<script>
+    function deleteForm() {
+
+         const id = document.getElementById("id").value;
+
+        const data = {
+            id: document.getElementById("id").value,
+
+        };
+
+        fetch(`http://localhost:8080/deleteStudentById/${id}`, {
+            method: "DELETE"})
+
+        .then(response => response.json())
+        .then(result => alert( JSON.stringify(result)))
+.catch(error => console.error("Error:", error));
     }
 </script>
 </body>
