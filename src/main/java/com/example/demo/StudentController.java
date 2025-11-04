@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -34,7 +36,7 @@ public class StudentController {
         return service.updateStudentById(rollNo,student);
     }
     @DeleteMapping("/deleteStudentById/{id}")
-    public String deleteStudentById(@PathVariable Long id ){
+    public ResponseEntity<Map<String, String>> deleteStudentById(@PathVariable Long id ){
         return service.deleteStudentById(id);
     }
 

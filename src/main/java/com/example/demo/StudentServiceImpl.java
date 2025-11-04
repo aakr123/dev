@@ -1,7 +1,10 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.util.Map;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,14 +63,19 @@ public class StudentServiceImpl implements StudentService {
        System.out.println(existingStudent);
        return existingStudent;
      }
-     public String deleteStudentById(Long id){
+     public ResponseEntity<Map<String, String>> deleteStudentById(Long id){
          if(repository.existsById(id)) {
              repository.deleteById(id);
-             return "Student details with ID "+id+" is deleted";
+             return ResponseEntity.ok(Map.of(
+                     "status", "success",
+                     "message" , "Student with Id "+id+" is deleted"
+             ));
 
          }
          else{
-             return "ID doesn't exist";
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                     "status","error",
+                     "message","Student is not found"));
          }
 
 
