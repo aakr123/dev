@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.*;
+
 
 @Entity
 @Data
@@ -12,7 +15,9 @@ import lombok.Data;
 public class Student {
     @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long rollNo;
+    @NotEmpty
     private String name;
 
     public String getDepartment() {
@@ -22,7 +27,7 @@ public class Student {
     public void setDepartment(String department) {
         this.department = department;
     }
-
+    @NotEmpty
     private String department;
 
     public String getName() {
